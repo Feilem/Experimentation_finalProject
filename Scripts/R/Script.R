@@ -201,105 +201,107 @@ bigTable[is.na(bigTable)] <- 1 # translate NAs to incorrect for simplicity
 
 # Check incorrect trials
 subset(bigTable,Match.Test.Mono == 1 | Match.ReTest.Mono == 1 | Match.Test.Bi == 1 | Match.ReTest.Bi == 1)
-# subID setSize RT.Test.Mono Match.Test.Mono RT.ReTest.Mono RT.Test.Bi RT.ReTest.Bi Match.ReTest.Mono Match.Test.Bi Match.ReTest.Bi
-# 44   Test.Andy.Mono       4     1.022601               0       0.774129   3.325279     0.721085                 0             0               1
-# 45   Test.Andy.Mono       4     0.662751               0       0.719098   0.795752     1.379976                 0             1               0
-# 46   Test.Andy.Mono       4     0.864442               1       0.725549   1.859321     1.291054                 0             0               0
-# 55   Test.Andy.Mono       4     0.415995               1       1.135912   0.722925     1.056195                 0             1               1
-# 67   Test.Andy.Mono       4     0.625293               0       0.645164   1.105199     1.367160                 0             1               0
-# 54   Test.Andy.Mono       8     0.472221               0       0.545964   3.719829     1.037642                 0             1               0
-# 77   Test.Andy.Mono       8     0.487250               0       0.686664   1.776919     1.208873                 0             1               0
-# 81   Test.Andy.Mono       8     0.536066               1       0.481230   1.843471     1.302744                 0             0               0
-# 82   Test.Andy.Mono       8     1.056558               0       1.240927   1.378475     1.392273                 0             1               0
-# 53   Test.Andy.Mono      16     0.386070               0       0.695152   2.151008     1.559100                 0             1               1
-# 56   Test.Andy.Mono      16     1.317168               0       0.727048   3.400925     1.602325                 0             1               0
-# 58   Test.Andy.Mono      16     0.395950               0       0.760044   1.577691     1.693980                 0             0               1
-# 59   Test.Andy.Mono      16     0.968468               0       0.602416   1.923217     2.144558                 1             1               1
-# 68   Test.Andy.Mono      16     0.494132               0       1.072377   1.836041     1.474255                 0             0               1
-# 169 Test.Chris.Mono       4     1.778905               1       0.998169   1.665980     1.259648                 0             0               0
-# 176 Test.Chris.Mono       4     6.352540               1       0.561635   1.309500     1.030976                 0             0               0
-# 185 Test.Chris.Mono       4     6.833061               1       0.451500   1.129292     3.219935                 0             0               0
-# 190 Test.Chris.Mono       4     0.779953               0       0.433808   1.453047     1.097752                 0             1               0
-# 200 Test.Chris.Mono       8     0.475671               0       0.424514   2.723750     0.884290                 0             1               0
-# 181 Test.Chris.Mono      16     9.777698               1       0.594789   3.355250     0.839927                 0             0               0
-# 127   Test.Olu.Mono       4     1.131750               1       0.417781   1.610419     1.481705                 1             0               0
-# 155   Test.Olu.Mono       4     0.536886               0       0.525237   1.117270     1.516515                 0             0               1
-# 143   Test.Olu.Mono       8     0.568991               0       0.531027   1.686639     1.218058                 1             1               0
-# 146   Test.Olu.Mono       8     0.757705               0       0.836562   2.114260     1.859983                 0             0               1
-# 150   Test.Olu.Mono       8     0.647550               0       0.676805   1.926689     1.940301                 0             1               0
-# 151   Test.Olu.Mono       8     0.550023               0       0.555727   2.316651     1.723965                 0             1               0
-# 160   Test.Olu.Mono       8     0.740951               0       0.539978   2.230870     0.869770                 0             1               0
-# 131   Test.Olu.Mono      16     0.355638               0       0.731908   2.417254     3.425683                 0             1               1
-# 132   Test.Olu.Mono      16     0.549093               0       0.658698   2.837205     2.718554                 0             1               1
-# 138   Test.Olu.Mono      16     0.501017               1       0.527358   2.702946     3.314746                 0             0               0
-# 142   Test.Olu.Mono      16     0.723670               0       0.744663   3.137612     3.821991                 0             0               1
-# 145   Test.Olu.Mono      16     0.841687               0       0.589166   3.087987     3.606982                 0             1               0
-# 162   Test.Olu.Mono      16     0.776668               0       0.704553   3.860501     3.275416                 0             0               1
-# 115 Test.Rahul.Mono       8     0.581227               0       0.539465   0.875412     1.947853                 0             0               1
-# 123 Test.Rahul.Mono       8     0.596566               1       0.704800   2.740868     1.728188                 0             0               0
-# 85  Test.Rahul.Mono      16     1.669200               0       0.502888   2.072777     1.554504                 0             0               1
-# 93  Test.Rahul.Mono      16     0.511546               0       0.594899   2.189776     2.336344                 0             1               0
-# 117 Test.Rahul.Mono      16     0.574051               0       0.506789   3.226851     2.488250                 0             0               1
-# 5   Test.Sagar.Mono       4     0.739722               0       0.560575   1.636073     3.394640                 0             1               0
-# 21  Test.Sagar.Mono       4     0.508559               0       2.098871   1.430768     1.555479                 0             0               1
-# 8   Test.Sagar.Mono       8     0.808220               0       0.761140   2.740488     8.240092                 0             0               1
-# 14  Test.Sagar.Mono       8     0.807050               1       0.718280   4.491528     4.255629                 0             0               0
-# 11  Test.Sagar.Mono      16     0.743576               0       0.511656   4.221471     6.748745                 0             0               1
-# 15  Test.Sagar.Mono      16     0.692419               0       0.380413   8.266542     8.972391                 0             0               1
-# 17  Test.Sagar.Mono      16     0.643167               0       1.461503   4.182225     6.788067                 0             0               1
-# 23  Test.Sagar.Mono      16     1.003473               0       0.808719   1.896279    10.000000                 0             1               1
-# 26  Test.Sagar.Mono      16     0.692832               0       1.737056   7.002669     8.239263                 0             1               0
-# 42  Test.Sagar.Mono      16     0.674351               0       1.761816   4.165721    10.000000                 0             0               1
-
 # This could be troublesome... Bisected test has rarely been completed with less than 3 mistakes
 
-# Looks like we could try to transform it an make it more normalised
 
 # First of all, we need to determine if a participant was inconsistent with the answers 
 errors_allowed <- 3
 subsIds <- unique(bigTable$subID)
+for (participant in subsIds) {
+    pp_bigTable <- subset(bigTable, subID == participant)
+    # Determine for each experiment if the participant should be considered
+    # If they aren't, we recode their RTs to NAs and later ignore them
+    if (sum(as.numeric(pp_bigTable$Match.Test.Mono)) > errors_allowed) {
+        pp_bigTable$RT.Test.Mono <- NA
+    }
+    if (sum(as.numeric(pp_bigTable$Match.Test.Bi)) > errors_allowed) {
+        pp_bigTable$RT.Test.Bi <- NA
+    }
+    if (sum(as.numeric(pp_bigTable$Match.ReTest.Mono)) > errors_allowed) {
+        pp_bigTable$RT.ReTest.Mono <- NA
+    }
+    if (sum(as.numeric(pp_bigTable$Match.ReTest.Bi)) > errors_allowed) {
+        pp_bigTable$RT.ReTest.Bi <- NA
+    }
+    # copy back the participants updated data
+    bigTable[bigTable$subID == participant,] <- pp_bigTable
+}
 
+# OPTIONAL: We could also define a minimum RT and discard every trial with a lower RT than that
+
+# Looks like we could try to transform it an make it more normalised
 
 
 # But first lets locate and get rid of outliers
-rt_mean.test.mono = mean(bigTable$RT.Test.Mono)
-rt_mean.retest.mono = mean(bigTable$RT.ReTest.Mono)
-rt_mean.test.bi = mean(bigTable$RT.Test.Bi)
-rt_mean.retest.bi = mean(bigTable$RT.ReTest.Bi)
-rt_sd.test.mono = sd(bigTable$RT.Test.Mono)
-rt_sd.retest.mono = sd(bigTable$RT.ReTest.Mono)
-rt_sd.test.bi = sd(bigTable$RT.Test.Bi)
-rt_sd.retest.bi = sd(bigTable$RT.ReTest.Bi)
+rt_mean.test.mono = mean(bigTable$RT.Test.Mono, na.rm = TRUE)
+rt_mean.retest.mono = mean(bigTable$RT.ReTest.Mono, na.rm = TRUE)
+rt_mean.test.bi = mean(bigTable$RT.Test.Bi, na.rm = TRUE)
+rt_mean.retest.bi = mean(bigTable$RT.ReTest.Bi, na.rm = TRUE)
+rt_sd.test.mono = sd(bigTable$RT.Test.Mono, na.rm = TRUE)
+rt_sd.retest.mono = sd(bigTable$RT.ReTest.Mono, na.rm = TRUE)
+rt_sd.test.bi = sd(bigTable$RT.Test.Bi, na.rm = TRUE)
+rt_sd.retest.bi = sd(bigTable$RT.ReTest.Bi, na.rm = TRUE)
 # abs($x - mean) <= 3*sd as done in previous lab and in the literature (2 or 3 times the sd from the mean)
 deviation_allowed <- 2
-to_remove.test.mono <- Test.Mono[abs(Test.Mono$RT - rt_mean.test.mono) > deviation_allowed*rt_sd.test.mono,]
-to_remove.retest.mono <- ReTest.Mono[abs(ReTest.Mono$RT - rt_mean.retest.mono) > deviation_allowed*rt_sd.retest.mono,]
-to_remove.test.bi <- Test.Bi[abs(Test.Bi$RT - rt_mean.test.bi) > deviation_allowed*rt_sd.test.bi,]
-to_remove.retest.bi <- ReTest.Bi[abs(ReTest.Bi$RT - rt_mean.retest.bi) > deviation_allowed*rt_sd.retest.bi,]
-Removed.Test.Mono <- Test.Mono[! (row.names(Test.Mono) %in% row.names(to_remove.test.mono)),]
-Removed.ReTest.Mono <- ReTest.Mono[! (row.names(ReTest.Mono) %in% row.names(to_remove.retest.mono)),]
-Removed.Test.Bi <- Test.Bi[! (row.names(Test.Bi) %in% row.names(to_remove.test.bi)),]
-Removed.ReTest.Bi <- ReTest.Bi[! (row.names(ReTest.Bi) %in% row.names(to_remove.retest.bi)),]
+# to_remove.test.mono <- Test.Mono[abs(Test.Mono$RT - rt_mean.test.mono) > deviation_allowed*rt_sd.test.mono,]
+# to_remove.retest.mono <- ReTest.Mono[abs(ReTest.Mono$RT - rt_mean.retest.mono) > deviation_allowed*rt_sd.retest.mono,]
+# to_remove.test.bi <- Test.Bi[abs(Test.Bi$RT - rt_mean.test.bi) > deviation_allowed*rt_sd.test.bi,]
+# to_remove.retest.bi <- ReTest.Bi[abs(ReTest.Bi$RT - rt_mean.retest.bi) > deviation_allowed*rt_sd.retest.bi,]
+to_remove.test.mono <- bigTable[abs(bigTable$RT.Test.Mono - rt_mean.test.mono) > deviation_allowed*rt_sd.test.mono,]
+to_remove.test.mono <- to_remove.test.mono[!is.na(to_remove.test.mono$RT.Test.Mono),]
+to_remove.retest.mono <- bigTable[abs(bigTable$RT.ReTest.Mono - rt_mean.retest.mono) > deviation_allowed*rt_sd.retest.mono,]
+to_remove.retest.mono <- to_remove.retest.mono[!is.na(to_remove.retest.mono$RT.ReTest.Mono),]
+to_remove.test.bi <- bigTable[abs(bigTable$RT.Test.Bi - rt_mean.test.bi) > deviation_allowed*rt_sd.test.bi,]
+to_remove.test.bi <- to_remove.test.bi[!is.na(to_remove.test.bi$RT.Test.Bi),]
+to_remove.retest.bi <- bigTable[abs(bigTable$RT.ReTest.Bi - rt_mean.retest.bi) > deviation_allowed*rt_sd.retest.bi,]
+to_remove.retest.bi <- to_remove.retest.bi[!is.na(to_remove.retest.bi$RT.ReTest.Bi),]
+
+# remove values from our table
+bigTable[(row.names(bigTable) %in% row.names(to_remove.test.mono)),c("RT.Test.Mono")] <- NA
+bigTable[(row.names(bigTable) %in% row.names(to_remove.retest.mono)),c("RT.ReTest.Mono")] <- NA
+bigTable[(row.names(bigTable) %in% row.names(to_remove.test.bi)),c("RT.Test.Bi")] <- NA
+bigTable[(row.names(bigTable) %in% row.names(to_remove.retest.bi)),c("RT.ReTest.Bi")] <- NA
+# Removed.Test.Mono <- Test.Mono[! (row.names(Test.Mono) %in% row.names(to_remove.test.mono)),]
+# Removed.ReTest.Mono <- ReTest.Mono[! (row.names(ReTest.Mono) %in% row.names(to_remove.retest.mono)),]
+# Removed.Test.Bi <- Test.Bi[! (row.names(Test.Bi) %in% row.names(to_remove.test.bi)),]
+# Removed.ReTest.Bi <- ReTest.Bi[! (row.names(ReTest.Bi) %in% row.names(to_remove.retest.bi)),]
 
 # Visualize
-hist(Removed.Test.Mono$RT)
-hist(Removed.ReTest.Mono$RT)
-hist(Removed.Test.Bi$RT)
-hist(Removed.ReTest.Bi$RT)
+hist(bigTable$RT.Test.Mono)
+hist(bigTable$RT.ReTest.Mono)
+hist(bigTable$RT.Test.Bi)
+hist(bigTable$RT.ReTest.Bi)
+
+# right skewed data as expected of RTs -> log-transform it
+
+bigTable$RT.Test.Mono <- log(bigTable$RT.Test.Mono)
+bigTable$RT.ReTest.Mono <- log(bigTable$RT.ReTest.Mono)
+bigTable$RT.Test.Bi <- log(bigTable$RT.Test.Bi)
+bigTable$RT.ReTest.Bi <- log(bigTable$RT.ReTest.Bi)
 
 # Check normality of data in our vectors
-shapiro.test(Removed.Test.Mono$RT)
-shapiro.test(Removed.ReTest.Mono$RT)
-shapiro.test(Removed.Test.Bi$RT)
-shapiro.test(Removed.ReTest.Bi$RT)
-# none of them follow a normal distribution
+shapiro.test(bigTable$RT.Test.Mono)
+shapiro.test(bigTable$RT.ReTest.Mono)
+shapiro.test(bigTable$RT.Test.Bi)
+shapiro.test(bigTable$RT.ReTest.Bi)
+# none of them follow a normal distribution but it doesn't really matter
+# Because we didn't have vectors of equal sizes so wilcox.test or t.test wouldn't be applicable
+# We will have to stick to linear models
 
-# Check with transformations
-shapiro.test(log(Removed.Test.Mono$RT))
-shapiro.test(log(Removed.ReTest.Mono$RT))
-shapiro.test(log(Removed.Test.Bi$RT))
-shapiro.test(log(Removed.ReTest.Bi$RT))
-# ... I've tried with different transformations and I can't really get something very normally distributed so
+#### CONTINUE HERE ####
+
+
+# 
+# # Check with transformations
+# shapiro.test(log(Removed.Test.Mono$RT))
+# shapiro.test(log(Removed.ReTest.Mono$RT))
+# shapiro.test(log(Removed.Test.Bi$RT))
+# shapiro.test(log(Removed.ReTest.Bi$RT))
+# # ... I've tried with different transformations and I can't really get something very normally distributed for all of them
+# hist(log(Removed.Test.Mono$RT))
+# hist(log(Removed.ReTest.Mono$RT))
+# hist(log(Removed.Test.Bi$RT))
+# hist(log(Removed.ReTest.Bi$RT))
 
 # DATA CANNOT BE TRANSFORMED SO IT RESEMBLES A NORMAL DISTRIBUTION!!
 # which means that we will have to use wilcox.test instead of t.test, no problem :)
