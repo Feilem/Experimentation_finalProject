@@ -284,14 +284,86 @@ shapiro.test(bigTable$RT.Test.Mono)
 shapiro.test(bigTable$RT.ReTest.Mono)
 shapiro.test(bigTable$RT.Test.Bi)
 shapiro.test(bigTable$RT.ReTest.Bi)
+
+hist(bigTable$RT.Test.Mono)
+hist(bigTable$RT.ReTest.Mono)
+hist(bigTable$RT.Test.Bi)
+hist(bigTable$RT.ReTest.Bi)
+
 # none of them follow a normal distribution but it doesn't really matter
 # Because we didn't have vectors of equal sizes so wilcox.test or t.test wouldn't be applicable
 # We will have to stick to linear models
 
-#### CONTINUE HERE ####
+# Linear models
+
+lm1 <- lm(RT.Test.Bi ~ RT.ReTest.Mono, bigTable, na.action = na.exclude)
+summary(lm1)
+# significant intercept and ReTest values
+# Let's look at the residuals
+bigTable$predicted1.Test.Bi <- predict(lm1)
+bigTable$residuals1.Test.Bi <- resid(lm1)
+ggplot(bigTable, aes(x = RT.ReTest.Mono, y = RT.Test.Bi)) +
+    geom_smooth(method = "lm", se = FALSE, color = "lightgrey") +
+    geom_segment(aes(xend = RT.ReTest.Mono, yend = predicted1.Test.Bi), alpha = .2) +
+    geom_point(aes(color = abs(residuals1.Test.Bi), size = abs(residuals1.Test.Bi))) + 
+    scale_color_continuous(low = "green", high = "red") + 
+    guides(color = FALSE, size = FALSE) + 
+    geom_point(aes(y = predicted1.Test.Bi), shape = 2) + 
+    theme_bw()
+# The plot shows graphically the size of the residual value using a colour code 
+# (red is longer line to green - smaller line) and size of point. The size of residual 
+# is the length of the vertical line from the point to where it meets the regression line.
+
+# This linear model fit is not ideal judging by the residuals, but statistically significant
+
+lm2 <- lm(RT.Test.Bi ~ RT.ReTest.Mono + setSize, data = bigTable, na.action = na.exclude)
+summary(lm2)
+bigTable$predicted2.Test.Bi <- predict(lm2)
+bigTable$residuals2.Test.Bi <- resid(lm2)
+ggplot(bigTable, aes(x = RT.ReTest.Mono, y = RT.Test.Bi)) +
+    geom_smooth(method = "lm", se = FALSE, color = "lightgrey") +
+    geom_segment(aes(xend = RT.ReTest.Mono, yend = predicted2.Test.Bi), alpha = .2) +
+    geom_point(aes(color = abs(residuals2.Test.Bi), size = abs(residuals2.Test.Bi))) + 
+    scale_color_continuous(low = "green", high = "red") + 
+    guides(color = FALSE, size = FALSE) + 
+    geom_point(aes(y = predicted2.Test.Bi), shape = 2) + 
+    theme_bw()
+# This plot now loses some meaning because we are using 2 variables instead of only one but I didn't want to start looking into how to 3d plot
+wilcox.test(bigTable$predicted1.Test.Bi, bigTable$predicted2.Test.Bi)
+# This linear model offers better results judging by the output of the model, but no real difference statistically speaking
+
+lm3 <- lm(RT.Test.Bi ~ RT.ReTest.Mono * setSize, data = bigTable, na.action = na.exclude)
+summary(lm3)
+bigTable$predicted3.Test.Bi <- predict(lm3)
+bigTable$residuals3.Test.Bi <- resid(lm3)
+ggplot(bigTable, aes(x = RT.ReTest.Mono, y = RT.Test.Bi)) +
+    geom_smooth(method = "lm", se = FALSE, color = "lightgrey") +
+    geom_segment(aes(xend = RT.ReTest.Mono, yend = predicted3.Test.Bi), alpha = .2) +
+    geom_point(aes(color = abs(residuals3.Test.Bi), size = abs(residuals3.Test.Bi))) + 
+    scale_color_continuous(low = "green", high = "red") + 
+    guides(color = FALSE, size = FALSE) + 
+    geom_point(aes(y = predicted3.Test.Bi), shape = 2) + 
+    theme_bw()
+# This plot now loses some meaning but I used it anyway
+wilcox.test(bigTable$predicted2.Test.Bi, bigTable$predicted3.Test.Bi)
+# This model does not offer anything new either.
+
+# Let's try a mixed model that adds a random variation on subjects Ids
+library(lme4)
+lmx1 <- lmer(RT.Test.Bi ~ RT.ReTest.Mono * setSize + (1|subID), data = bigTable, na.action = na.exclude)
+summary(lmx1)
+# The t-values in this model are not significant save for the intercept
+lmx2 <- lmer(RT.Test.Bi ~ RT.ReTest.Mono + setSize + (1|subID), data = bigTable, na.action = na.exclude)
+summary(lmx2)
+# The t-value for RT.ReTest.Mono is not significant either, and that is the one we were most interested in
+# Also the residuals look very bad compared to the previous linear models
+wilcox.test(bigTable$predicted2.Test.Bi, predict(lmx2))
+# But again no significant difference between them.
 
 
-# 
+
+#### I STOPPED WORKING HERE ####
+
 # # Check with transformations
 # shapiro.test(log(Removed.Test.Mono$RT))
 # shapiro.test(log(Removed.ReTest.Mono$RT))
