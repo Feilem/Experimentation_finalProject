@@ -296,6 +296,8 @@ hist(bigTable$RT.ReTest.Bi)
 
 # Linear models
 
+# ReTest.Mono --> Test.Bi
+
 lm1 <- lm(RT.Test.Bi ~ RT.ReTest.Mono, bigTable, na.action = na.exclude)
 summary(lm1)
 # significant intercept and ReTest values
@@ -361,7 +363,62 @@ wilcox.test(bigTable$predicted2.Test.Bi, predict(lmx2))
 # But again no significant difference between them.
 
 
+# (Re)Test.Mono --> Test.Bi
 
+lm4 <- lm(RT.Test.Bi ~ RT.ReTest.Mono + RT.Test.Mono, bigTable, na.action = na.exclude)
+summary(lm4)
+bigTable$predicted4.Test.Bi <- predict(lm4)
+bigTable$residuals4.Test.Bi <- resid(lm4)
+# ggplot(bigTable, aes(x = RT.ReTest.Mono, y = RT.Test.Bi)) +
+#     geom_smooth(method = "lm", se = FALSE, color = "lightgrey") +
+#     geom_segment(aes(xend = RT.ReTest.Mono, yend = predicted1.Test.Bi), alpha = .2) +
+#     geom_point(aes(color = abs(residuals1.Test.Bi), size = abs(residuals1.Test.Bi))) + 
+#     scale_color_continuous(low = "green", high = "red") + 
+#     guides(color = FALSE, size = FALSE) + 
+#     geom_point(aes(y = predicted1.Test.Bi), shape = 2) + 
+#     theme_bw()
+lm5 <- lm(RT.Test.Bi ~ RT.ReTest.Mono + RT.Test.Mono + setSize, bigTable, na.action = na.exclude)
+summary(lm5)
+bigTable$predicted5.Test.Bi <- predict(lm5)
+bigTable$residuals5.Test.Bi <- resid(lm5)
+
+lm6 <- lm(RT.Test.Bi ~ RT.ReTest.Mono * RT.Test.Mono * setSize, bigTable, na.action = na.exclude)
+summary(lm6)
+bigTable$predicted6.Test.bi <- predict(lm6)
+bigTable$residuals6.Test.Bi <- resid(lm6)
+
+# Mixed models
+lmx3 <- lmer(RT.Test.Bi ~ RT.ReTest.Mono * RT.Test.Mono * setSize + (1|subID), data = bigTable, na.action = na.exclude)
+summary(lmx3)
+lmx4 <- lmer(RT.Test.Bi ~ RT.ReTest.Mono + RT.Test.Mono + setSize + (1|subID), data = bigTable, na.action = na.exclude)
+summary(lmx4)
+
+
+# everything --> ReTest.Bi
+lm7 <- lm(RT.ReTest.Bi ~ RT.Test.Mono + RT.ReTest.Mono + RT.Test.Bi, bigTable, na.action = na.exclude)
+summary(lm7)
+bigTable$predicted7.ReTest.Bi <- predict(lm7)
+bigTable$residuals7.ReTest.Bi <- resid(lm7)
+
+lm8 <- lm(RT.ReTest.Bi ~ RT.ReTest.Mono + RT.Test.Bi + setSize, bigTable, na.action = na.exclude)
+summary(lm8)
+
+lmx5 <- lmer(RT.ReTest.Bi ~ RT.ReTest.Mono + RT.Test.Mono + setSize + (1|subID), data = bigTable, na.action = na.exclude)
+# There is an error because not all levels of the factor subID appear in this subset of data.
+# We need more reliable data to run this model
+summary(lmx5)
+
+
+## CORRELATION TESTS
+library(corrplot)
+library(RColorBrewer)
+M <- cor(bigTable[, c(2,3,5,6,7)], use = "complete.obs")
+corrplot(M, type = "upper", order="hclust", col = brewer.pal(n=8, name="RdYlBu"))
+
+library(Hmisc)
+rcorr(as.matrix(bigTable[,c(2,3,5,6,7)]))
+
+# Funnily enough, the strongest correlation exists between ReTest.Mono and Test.Bi 
 #### I STOPPED WORKING HERE ####
 
 # # Check with transformations
